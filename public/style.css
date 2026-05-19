@@ -1,0 +1,96 @@
+body{
+font-family: Arial, sans-serif;
+background:#f4f6f9;
+margin:0;
+}
+
+.container{
+width:90%;
+max-width:900px;
+margin:40px auto;
+background:#fff;
+padding:25px;
+border-radius:10px;
+box-shadow:0 4px 15px rgba(0,0,0,0.1);
+}
+
+.top-bar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:15px;
+}
+
+h2{margin:0}
+
+/* Buttons */
+.btn{
+padding:6px 12px;
+border-radius:5px;
+font-size:13px;
+text-decoration:none;
+color:white;
+display:inline-block;
+}
+
+.btn-add{background:#2ecc71}
+.btn-edit{background:#3498db}
+.btn-delete{background:#e74c3c}
+.btn-back{
+background:#95a5a6;
+margin-bottom:15px;
+display:inline-block;
+}
+
+/* Action buttons side by side */
+.action-btns{
+display:flex;
+gap:8px;
+}
+
+/* Table */
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:15px;
+}
+
+th,td{
+padding:10px;
+border-bottom:1px solid #ddd;
+text-align:left;
+}
+
+th{
+background:#f0f2f5;
+}
+
+/* Image */
+img{
+border-radius:6px;
+}
+
+/* Form */
+label{
+display:block;
+margin-top:10px;
+font-weight:bold;
+}
+
+input,textarea,select{
+width:100%;
+padding:10px;
+margin-top:5px;
+border:1px solid #ccc;
+border-radius:6px;
+}
+
+form button{
+margin-top:15px;
+padding:10px 20px;
+background:#3498db;
+color:white;
+border:none;
+border-radius:6px;
+cursor:pointer;
+}
