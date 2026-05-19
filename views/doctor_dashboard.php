@@ -1,114 +1,41 @@
-<<<<<<< HEAD
 <?php
 include("../config/db.php");
 
-$sql="SELECT doctors.id,users.name,
-specializations.name AS specialization,
-COUNT(appointments.id) AS total
-FROM doctors
-JOIN users ON doctors.user_id=users.id
-JOIN specializations ON doctors.specialization_id=specializations.id
-LEFT JOIN appointments ON doctors.id=appointments.doctor_id
-WHERE users.is_active=1
-GROUP BY doctors.id";
+$type = $_GET['type'] ?? 'doctor';
 
-$res=$conn->query($sql);
+if($type == 'admin'){
+    $sql="SELECT doctors.id,users.name,
+    specializations.name AS specialization,
+    COUNT(appointments.id) AS total
+    FROM doctors
+    JOIN users ON doctors.user_id=users.id
+    JOIN specializations ON doctors.specialization_id=specializations.id
+    LEFT JOIN appointments ON doctors.id=appointments.doctor_id
+    WHERE users.is_active=1
+    GROUP BY doctors.id";
+
+    $res=$conn->query($sql);
+}
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
 <title>Dashboard</title>
-<link rel="stylesheet" href="../public/style.css">
-</head>
-<body>
-
-<div class="container">
-
-<h2>Doctor Dashboard</h2>
-
-<a href="../index.php" class="btn btn-back">← Home</a>
-
-<table>
-
-<tr>
-<th>ID</th>
-<th>Name</th>
-<th>Specialization</th>
-<th>Total Appointments</th>
-</tr>
-
-<?php while($r=$res->fetch_assoc()){ ?>
-
-<tr>
-<td><?php echo $r['id']?></td>
-<td><?php echo $r['name']?></td>
-<td><?php echo $r['specialization']?></td>
-<td><?php echo $r['total']?></td>
-</tr>
-
-<?php } ?>
-
-</table>
-
-</div>
-
-=======
-<!DOCTYPE html>
-<html>
-<head>
-<title>Doctor Dashboard</title>
 <style>
-body{
-    font-family: Arial;
-    background:#f5f7fb;
-    margin:0;
-}
-.header{
-    background:#4e73df;
-    color:white;
-    padding:15px;
-    font-size:20px;
-}
-.container{
-    padding:20px;
-}
-.card{
-    background:white;
-    padding:15px;
-    margin-bottom:20px;
-    border-radius:10px;
-    box-shadow:0 2px 10px rgba(0,0,0,0.1);
-}
-table{
-    width:100%;
-    border-collapse:collapse;
-}
-th,td{
-    padding:10px;
-    text-align:left;
-}
-th{
-    background:#4e73df;
-    color:white;
-}
-tr:nth-child(even){
-    background:#f2f2f2;
-}
-.badge{
-    padding:5px 10px;
-    border-radius:5px;
-    color:white;
-}
+body{font-family:Arial;background:#f5f7fb;margin:0;}
+.header{background:#4e73df;color:white;padding:15px;font-size:20px;}
+.container{padding:20px;}
+.card{background:white;padding:15px;margin-bottom:20px;border-radius:10px;box-shadow:0 2px 10px rgba(0,0,0,0.1);}
+table{width:100%;border-collapse:collapse;}
+th,td{padding:10px;text-align:left;}
+th{background:#4e73df;color:white;}
+tr:nth-child(even){background:#f2f2f2;}
+.badge{padding:5px 10px;border-radius:5px;color:white;}
 .pending{background:orange;}
 .completed{background:green;}
 .noshow{background:red;}
-button{
-    padding:6px 10px;
-    border:none;
-    border-radius:5px;
-    cursor:pointer;
-}
+button{padding:6px 10px;border:none;border-radius:5px;cursor:pointer;}
 .btn-success{background:green;color:white;}
 .btn-danger{background:red;color:white;}
 </style>
@@ -116,9 +43,11 @@ button{
 
 <body>
 
-<div class="header">Doctor Dashboard</div>
+<div class="header">Dashboard</div>
 
 <div class="container">
+
+<?php if($type == 'doctor'){ ?>
 
 <div class="card">
 <h3>Today's Appointments</h3>
@@ -171,6 +100,35 @@ button{
 </table>
 </div>
 
+<?php } ?>
+
+<?php if($type == 'admin'){ ?>
+
+<div class="card">
+<h3>Doctor List</h3>
+
+<table>
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Specialization</th>
+<th>Total Appointments</th>
+</tr>
+
+<?php while($r=$res->fetch_assoc()){ ?>
+<tr>
+<td><?= $r['id'] ?></td>
+<td><?= $r['name'] ?></td>
+<td><?= $r['specialization'] ?></td>
+<td><?= $r['total'] ?></td>
+</tr>
+<?php } ?>
+
+</table>
+</div>
+
+<?php } ?>
+
 </div>
 
 <script>
@@ -188,6 +146,5 @@ function updateStatus(id, status){
 }
 </script>
 
->>>>>>> origin/file-4
 </body>
 </html>
