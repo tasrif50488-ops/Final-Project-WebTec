@@ -1,36 +1,28 @@
-<<<<<<< HEAD
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+include("config/db.php");
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
-<title>Hospital System</title>
-<link rel="stylesheet" href="public/style.css">
+    <title>Hospital System</title>
+    <link rel="stylesheet" href="public/style.css">
 </head>
 <body>
 
 <div class="container">
+    <h2>Hospital Management System</h2>
 
-<h2>Hospital Management System</h2>
+    <br>
 
-<br>
-
-<a href="views/list_specialization.php" class="btn btn-add">Manage Specializations</a>
-
-<br><br>
-
-<a href="views/list_doctor.php" class="btn btn-edit">Manage Doctors</a>
-
-<br><br>
-
-<a href="views/doctor_dashboard.php" class="btn btn-back">Doctor Dashboard</a>
-
+    <a href="views/add_doctor.php">➕ Add Doctor</a><br><br>
+    <a href="views/list_doctor.php">📋 Doctor List</a><br><br>
+    <a href="views/add_specialization.php">➕ Add Specialization</a><br><br>
+    <a href="views/list_specialization.php">📋 Specialization List</a><br><br>
 </div>
 
 </body>
 </html>
-=======
-<?php
-require_once __DIR__ . '/controllers/AppointmentController.php';
-
-$controller = new AppointmentController();
-$controller->adminAppointments();
->>>>>>> origin/file-4
