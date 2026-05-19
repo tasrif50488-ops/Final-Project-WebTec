@@ -37,9 +37,8 @@ border:1px solid #ccc;
 font-size:14px;
 }
 
-input:focus{
-outline:none;
-border-color:#3b82f6;
+input::placeholder{
+color:#888;
 }
 
 button{
@@ -51,7 +50,6 @@ border:none;
 border-radius:8px;
 font-size:15px;
 cursor:pointer;
-transition:0.3s;
 }
 
 button:hover{
@@ -63,11 +61,6 @@ display:block;
 margin-top:15px;
 text-decoration:none;
 color:#3b82f6;
-font-size:14px;
-}
-
-a:hover{
-text-decoration:underline;
 }
 
 .logo{

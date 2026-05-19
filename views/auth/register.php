@@ -34,6 +34,11 @@ padding:12px;
 margin:10px 0;
 border-radius:8px;
 border:1px solid #ccc;
+font-size:14px;
+}
+
+input::placeholder{
+color:#888;
 }
 
 button{
@@ -46,18 +51,8 @@ border-radius:8px;
 cursor:pointer;
 }
 
-.error{
-background:#ffe0e0;
-color:red;
-padding:10px;
-border-radius:6px;
-margin-bottom:10px;
-text-align:center;
-}
-
-.link{
-text-align:center;
-margin-top:15px;
+button:hover{
+background:#2563eb;
 }
 </style>
 
@@ -69,25 +64,20 @@ margin-top:15px;
 
 <h2>Create Account</h2>
 
-<?php if(isset($_GET['error']) && $_GET['error']=="email_exists"){ ?>
-<div class="error">Email already exists</div>
-<?php } ?>
-
 <form method="POST" action="../../controllers/AuthController.php">
 
 <input type="text" name="name" placeholder="Full Name" required>
 
-<input type="email" name="email" placeholder="Email" required>
+<input type="email" name="email" placeholder="Enter your email" required>
 
-<input type="password" name="password" placeholder="Password" required>
+<input type="password" name="password" placeholder="Create password" required>
 
-<!-- ✅ FIX: age না, DOB -->
 <input type="date" name="dob" required>
 
-<input type="text" name="phone" placeholder="Phone" required>
+<input type="text" name="phone" placeholder="Phone number" required>
 
 <select name="blood_group" required>
-<option value="">Blood Group</option>
+<option value="">Select Blood Group</option>
 <option>A+</option>
 <option>B+</option>
 <option>O+</option>
@@ -98,9 +88,7 @@ margin-top:15px;
 
 </form>
 
-<div class="link">
 <a href="login.php">Already have account? Login</a>
-</div>
 
 </div>
 

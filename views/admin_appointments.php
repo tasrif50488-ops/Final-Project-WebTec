@@ -1,73 +1,38 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Admin Panel</title>
+<?php
+session_start();
+include("../config/db.php");
 
-<style>
-body{font-family:Arial;background:#f4f6f9;margin:0;}
-.header{background:#28a745;color:white;padding:15px;font-size:20px;}
-.container{padding:20px;}
-.card{background:white;padding:20px;border-radius:10px;box-shadow:0 2px 10px rgba(0,0,0,0.1);}
-table{width:100%;border-collapse:collapse;}
-th,td{padding:10px;text-align:center;}
-th{background:#28a745;color:white;}
-button{padding:6px 10px;border:none;border-radius:5px;cursor:pointer;}
-.confirm{background:#007bff;color:white;}
-.cancel{background:#dc3545;color:white;}
-</style>
-</head>
+$res = $conn->query("
+SELECT a.*, u.name as user_name, d.name as doctor_name 
+FROM appointments a
+JOIN users u ON a.user_id=u.id
+JOIN doctors d ON a.doctor_id=d.id
+");
+?>
 
-<body>
+<h2>Appointments</h2>
 
-<div class="header">Admin Appointment Panel</div>
-
-<div class="container">
-<div class="card">
-
-<table>
+<table border="1">
 <tr>
-<th>Patient</th>
+<th>ID</th>
+<th>User</th>
+<th>Doctor</th>
 <th>Date</th>
-<th>Time</th>
 <th>Status</th>
 <th>Action</th>
 </tr>
 
-<?php foreach($appointments as $a): ?>
+<?php while($row=$res->fetch_assoc()){ ?>
 <tr>
-<td><?= $a['patient_name'] ?></td>
-<td><?= $a['appointment_date'] ?></td>
-<td><?= $a['appointment_time'] ?></td>
-
-<td id="status-<?= $a['id'] ?>">
-<?= $a['status'] ?>
-</td>
-
+<td><?php echo $row['id']; ?></td>
+<td><?php echo $row['user_name']; ?></td>
+<td><?php echo $row['doctor_name']; ?></td>
+<td><?php echo $row['appointment_date']; ?></td>
+<td><?php echo $row['status']; ?></td>
 <td>
-<button class="confirm" onclick="updateStatus(<?= $a['id'] ?>,'Confirmed')">Confirm</button>
-<button class="cancel" onclick="updateStatus(<?= $a['id'] ?>,'Cancelled')">Cancel</button>
+<a href="approve.php?id=<?php echo $row['id']; ?>">Approve</a>
+<a href="cancel.php?id=<?php echo $row['id']; ?>">Cancel</a>
 </td>
 </tr>
-<?php endforeach; ?>
-
+<?php } ?>
 </table>
-
-</div>
-</div>
-
-<script>
-function updateStatus(id, status){
-    fetch('api/update_status.php?id=' + id, {
-        method:'PUT',
-        headers:{'Content-Type':'application/json'},
-        body: JSON.stringify({status:status})
-    })
-    .then(res => res.json())
-    .then(data => {
-        document.getElementById('status-'+id).innerText = data.new_status;
-    });
-}
-</script>
-
-</body>
-</html>
