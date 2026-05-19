@@ -1,14 +1,24 @@
 <?php
 session_start();
-if($_SESSION['role']!='user'){
-    header("Location: admin_dashboard.php");
+if(!isset($_SESSION['user']) || $_SESSION['user']['role']!='user'){
+header("Location: auth/login.php");
 }
 ?>
 
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="../public/style.css">
+</head>
+<body>
+
+<div class="container">
 <h2>User Dashboard</h2>
 
 <a href="booking/add.php">Book Appointment</a>
-<br><br>
 <a href="booking/list.php">My Appointments</a>
-<br><br>
-<a href="../controllers/logout.php">Logout</a>
+
+</div>
+
+</body>
+</html>

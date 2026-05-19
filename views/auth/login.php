@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,11 +35,6 @@ padding:12px;
 margin:10px 0;
 border-radius:8px;
 border:1px solid #ccc;
-font-size:14px;
-}
-
-input::placeholder{
-color:#888;
 }
 
 button{
@@ -48,19 +44,14 @@ background:#3b82f6;
 color:white;
 border:none;
 border-radius:8px;
-font-size:15px;
 cursor:pointer;
-}
-
-button:hover{
-background:#2563eb;
 }
 
 a{
 display:block;
 margin-top:15px;
-text-decoration:none;
 color:#3b82f6;
+text-decoration:none;
 }
 
 .logo{

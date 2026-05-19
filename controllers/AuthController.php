@@ -2,33 +2,39 @@
 session_start();
 include("../config/db.php");
 
-if(isset($_POST['login'])){
+if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+    if(isset($_POST['login'])){
 
-    $res = $conn->query("SELECT * FROM users WHERE email='$email'");
+        $email = $_POST['email'];
+        $password = $_POST['password'];
 
-    if($res->num_rows > 0){
+        $result = $conn->query("SELECT * FROM users WHERE email='$email'");
 
-        $user = $res->fetch_assoc();
+        if($result && $result->num_rows > 0){
 
-        if(password_verify($password, $user['password_hash'])){
+            $user = $result->fetch_assoc();
 
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['role'] = $user['role'];
+            if(password_verify($password, $user['password_hash'])){
 
-            if($user['role'] == 'admin'){
-                header("Location: ../views/admin_dashboard.php");
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['role'] = $user['role'];
+
+                if($user['role'] == 'admin'){
+                    header("Location: ../views/admin_dashboard.php");
+                }else{
+                    header("Location: ../views/user_dashboard.php");
+                }
+                exit();
+
             }else{
-                header("Location: ../views/dashboard.php");
+                echo "Wrong Password";
             }
 
         }else{
-            echo "Wrong Password";
+            echo "User Not Found";
         }
 
-    }else{
-        echo "User not found";
     }
+
 }

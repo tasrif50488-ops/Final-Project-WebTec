@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,11 +35,6 @@ padding:12px;
 margin:10px 0;
 border-radius:8px;
 border:1px solid #ccc;
-font-size:14px;
-}
-
-input::placeholder{
-color:#888;
 }
 
 button{
@@ -51,8 +47,9 @@ border-radius:8px;
 cursor:pointer;
 }
 
-button:hover{
-background:#2563eb;
+.link{
+text-align:center;
+margin-top:15px;
 }
 </style>
 
@@ -67,17 +64,13 @@ background:#2563eb;
 <form method="POST" action="../../controllers/AuthController.php">
 
 <input type="text" name="name" placeholder="Full Name" required>
-
-<input type="email" name="email" placeholder="Enter your email" required>
-
-<input type="password" name="password" placeholder="Create password" required>
-
+<input type="email" name="email" placeholder="Email" required>
+<input type="password" name="password" placeholder="Password" required>
 <input type="date" name="dob" required>
-
-<input type="text" name="phone" placeholder="Phone number" required>
+<input type="text" name="phone" placeholder="Phone" required>
 
 <select name="blood_group" required>
-<option value="">Select Blood Group</option>
+<option value="">Blood Group</option>
 <option>A+</option>
 <option>B+</option>
 <option>O+</option>
@@ -88,7 +81,9 @@ background:#2563eb;
 
 </form>
 
+<div class="link">
 <a href="login.php">Already have account? Login</a>
+</div>
 
 </div>
 

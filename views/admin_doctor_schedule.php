@@ -7,52 +7,59 @@ if($_SESSION['role'] != 'admin'){
 }
 
 $result = $conn->query("
-SELECT a.*, u.name AS patient, du.name AS doctor
+SELECT 
+    du.name AS doctor_name,
+    a.appointment_date,
+    a.appointment_time,
+    a.status
 FROM appointments a
-JOIN users u ON a.patient_id = u.id
 JOIN doctors d ON a.doctor_id = d.id
 JOIN users du ON d.user_id = du.id
-ORDER BY a.id DESC
+ORDER BY a.appointment_date DESC
 ");
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-<title>Appointments</title>
+<title>Doctor Schedule</title>
 <link rel="stylesheet" href="../public/style.css">
 </head>
 <body>
 
 <div class="container">
-<h2>Appointments</h2>
+<h2>Doctor Schedule (Booked Slots)</h2>
 
 <table>
 <tr>
-<th>Patient</th>
 <th>Doctor</th>
 <th>Date</th>
 <th>Time</th>
 <th>Status</th>
-<th>Action</th>
 </tr>
 
 <?php while($row = $result->fetch_assoc()){ ?>
 <tr>
-<td><?php echo $row['patient']; ?></td>
-<td><?php echo $row['doctor']; ?></td>
+<td><?php echo $row['doctor_name']; ?></td>
 <td><?php echo $row['appointment_date']; ?></td>
 <td><?php echo $row['appointment_time']; ?></td>
-<td><?php echo $row['status']; ?></td>
 <td>
-<a href="../controllers/AppointmentController.php?approve=<?php echo $row['id']; ?>">Approve</a>
-<a href="../controllers/AppointmentController.php?cancel=<?php echo $row['id']; ?>">Cancel</a>
+<?php 
+if($row['status'] == 'Approved'){
+    echo "<span style='color:green;'>Booked</span>";
+}else if($row['status'] == 'Pending'){
+    echo "<span style='color:orange;'>Pending</span>";
+}else{
+    echo "<span style='color:red;'>Cancelled</span>";
+}
+?>
 </td>
 </tr>
 <?php } ?>
 
 </table>
 
+<br>
 <a href="admin_dashboard.php">Back</a>
 </div>
 
